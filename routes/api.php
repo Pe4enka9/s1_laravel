@@ -12,5 +12,5 @@ Route::post('/booking', [BookingController::class, 'store']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::post('/booking-auth', [BookingController::class, 'storeAuth']);
+    Route::post('/booking/auth', [BookingController::class, 'storeAuth']);
 });

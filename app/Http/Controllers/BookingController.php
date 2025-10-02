@@ -17,6 +17,7 @@ class BookingController extends Controller
             'date' => $request->input('date'),
             'duration' => $request->input('duration'),
             'number_of_people' => $request->input('number_of_people'),
+            'total' => $request->input('duration') * 400 * $request->input('number_of_people'),
         ]);
 
         return response()->json(new BookingResource($booking), 201);
@@ -30,6 +31,7 @@ class BookingController extends Controller
             'date' => $request->input('date'),
             'duration' => $request->input('duration'),
             'number_of_people' => $request->input('number_of_people'),
+            'total' => $request->input('duration') * 400 * $request->input('number_of_people'),
         ]);
 
         return response()->json(new BookingResource($booking), 201);

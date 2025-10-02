@@ -15,6 +15,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->unsignedInteger('duration');
             $table->unsignedInteger('number_of_people');
+            $table->unsignedInteger('total');
             $table->timestamps();
         });
     }
