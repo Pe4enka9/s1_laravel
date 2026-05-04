@@ -29,4 +29,8 @@ Route::middleware('admin')->group(function () {
     Route::post('/sliders', [SliderController::class, 'store']);
     Route::patch('/sliders/{slider}', [SliderController::class, 'update']);
     Route::delete('/sliders/{slider}', [SliderController::class, 'destroy']);
+
+    Route::post('/menus', [MenuController::class, 'store']);
+    Route::patch('/menus/{menu}', [MenuController::class, 'update']);
+    Route::delete('/menus/{menu}', [MenuController::class, 'destroy']);
 });
