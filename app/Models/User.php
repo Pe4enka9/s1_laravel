@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Booking\Booking;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,12 +23,5 @@ class User extends Authenticatable
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class, 'user_id');
-    }
-
-    protected function fullName(): Attribute
-    {
-        return Attribute::make(
-            get: fn() => "$this->first_name $this->last_name",
-        );
     }
 }

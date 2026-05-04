@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StatusDto;
-use App\Http\Requests\UserDto;
 use App\Http\Resources\BookingResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\Builder;
@@ -35,18 +34,5 @@ class UserController extends Controller
                 'last_page' => $bookings->lastPage(),
             ],
         ]);
-    }
-
-    public function update(UserDto $dto): JsonResponse
-    {
-        $user = Auth::user();
-
-        $user->update([
-            'phone' => $dto->phone,
-            'first_name' => $dto->firstName,
-            'last_name' => $dto->lastName,
-        ]);
-
-        return response()->json(new UserResource($user));
     }
 }

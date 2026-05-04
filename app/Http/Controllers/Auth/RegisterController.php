@@ -16,8 +16,6 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'phone' => $dto->phone,
-            'first_name' => $dto->firstName,
-            'last_name' => $dto->lastName,
             'password' => Hash::make($dto->password),
         ]);
 

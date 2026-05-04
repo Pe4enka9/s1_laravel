@@ -22,7 +22,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'index']);
     Route::get('/user/bookings', [UserController::class, 'bookings']);
 
-    Route::patch('/users/{user}', [UserController::class, 'update']);
-
     Route::post('/logout', [LoginController::class, 'logout']);
+});
+
+Route::middleware('admin')->group(function () {
+    Route::post('/sliders', [SliderController::class, 'store']);
+    Route::patch('/sliders/{slider}', [SliderController::class, 'update']);
+    Route::delete('/sliders/{slider}', [SliderController::class, 'destroy']);
 });
