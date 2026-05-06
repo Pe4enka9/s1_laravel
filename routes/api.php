@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SlideController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,9 @@ Route::middleware('admin')->group(function () {
     Route::post('/menus', [MenuController::class, 'store']);
     Route::patch('/menus/{menu}', [MenuController::class, 'update']);
     Route::delete('/menus/{menu}', [MenuController::class, 'destroy']);
+
+    Route::get('/slides', [SlideController::class, 'index']);
+    Route::post('/slides', [SlideController::class, 'store']);
+    Route::patch('/slides/{slide}', [SlideController::class, 'update']);
+    Route::delete('/slides/{slide}', [SlideController::class, 'destroy']);
 });

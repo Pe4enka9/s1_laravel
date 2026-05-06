@@ -15,7 +15,7 @@ class SlideResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'menu_id' => $this->menu_id,
+            'menu' => new MenuResource($this->menu),
             'name' => $this->name,
             'description' => $this->description,
             'bg_img' => $this->bg_img,
