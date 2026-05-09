@@ -27,16 +27,24 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
+    // Слайдер
     Route::post('/sliders', [SliderController::class, 'store']);
     Route::patch('/sliders/{slider}', [SliderController::class, 'update']);
     Route::delete('/sliders/{slider}', [SliderController::class, 'destroy']);
 
+    // Меню
     Route::post('/menus', [MenuController::class, 'store']);
     Route::patch('/menus/{menu}', [MenuController::class, 'update']);
     Route::delete('/menus/{menu}', [MenuController::class, 'destroy']);
 
+    // Слайды меню
     Route::get('/slides', [SlideController::class, 'index']);
     Route::post('/slides', [SlideController::class, 'store']);
     Route::patch('/slides/{slide}', [SlideController::class, 'update']);
     Route::delete('/slides/{slide}', [SlideController::class, 'destroy']);
+
+    // Бронирования
+    Route::get('/bookings', [BookingController::class, 'index']);
+    Route::patch('/bookings/{booking}', [BookingController::class, 'update']);
+    Route::get('/bookings/stats', [BookingController::class, 'getStats']);
 });

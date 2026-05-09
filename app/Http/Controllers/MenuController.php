@@ -30,7 +30,6 @@ class MenuController extends Controller
             'name' => $dto->name,
             'bg_img' => $dto->bgImg->store('menus/bg', 'public'),
             'icon' => $dto->icon->store('menus/icons', 'public'),
-            'is_booking' => $dto->isBooking,
         ]);
 
         return response()->json(new MenuResource($menu), 201);
@@ -50,7 +49,6 @@ class MenuController extends Controller
             'name' => $dto->name,
             'bg_img' => $dto->bgImg?->store('sliders/bg', 'public') ?? $menu->getRawOriginal('bg_img'),
             'icon' => $dto->icon?->store('sliders/icons', 'public') ?? $menu->getRawOriginal('icon'),
-            'is_booking' => $dto->isBooking,
         ]);
 
         return response()->json(new MenuResource($menu));

@@ -20,7 +20,6 @@ class UpdateMenuDto extends Data
         public ?UploadedFile $bgImg,
         #[Mimes('svg'), Max(2048)]
         public ?UploadedFile $icon,
-        public bool          $isBooking,
     )
     {
     }

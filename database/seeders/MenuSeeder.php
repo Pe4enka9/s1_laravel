@@ -39,7 +39,6 @@ class MenuSeeder extends Seeder
                 'name' => 'Запись в клубе',
                 'bg_img' => 'seeders/menus/bg/menu-bg-6.jpg',
                 'icon' => 'seeders/menus/icons/calendar.svg',
-                'is_booking' => true,
             ],
         ];
 

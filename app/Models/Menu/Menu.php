@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Storage;
 #[Guarded(['id'])]
 class Menu extends Model
 {
-    protected $casts = [
-        'is_booking' => 'boolean',
-    ];
-
     protected function bgImg(): Attribute
     {
         return Attribute::make(

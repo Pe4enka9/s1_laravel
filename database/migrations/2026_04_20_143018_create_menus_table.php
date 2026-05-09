@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('bg_img');
             $table->string('icon');
-            $table->boolean('is_booking')->default(false);
             $table->timestamps();
         });
     }

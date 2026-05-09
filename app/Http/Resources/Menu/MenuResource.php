@@ -18,7 +18,6 @@ class MenuResource extends JsonResource
             'name' => $this->name,
             'bg_img' => $this->bg_img,
             'icon' => $this->icon,
-            'is_booking' => $this->is_booking,
         ];
     }
 }
