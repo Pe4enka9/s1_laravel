@@ -19,7 +19,7 @@ class RegisterController extends Controller
             'password' => Hash::make($dto->password),
         ]);
 
-        Auth::guard('web')->login($user);
+        Auth::login($user, true);
 
         request()->session()->regenerate();
 

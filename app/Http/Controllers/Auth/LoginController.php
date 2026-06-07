@@ -13,18 +13,15 @@ class LoginController extends Controller
 {
     public function login(LoginDto $dto): JsonResponse
     {
-        if (
-            !Auth::guard('web')->attempt([
-                'phone' => $dto->phone,
-                'password' => $dto->password,
-            ])
-        ) {
+        if (!Auth::attempt($dto->toArray())) {
             return response()->json([], 401);
         }
 
         request()->session()->regenerate();
 
-        return response()->json(new UserResource(Auth::user()));
+        $user = Auth::user();
+
+        return response()->json(new UserResource($user));
     }
 
     public function logout(Request $request): JsonResponse

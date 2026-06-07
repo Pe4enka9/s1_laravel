@@ -13,7 +13,9 @@ class UserController extends Controller
 {
     public function index(): JsonResponse
     {
-        return response()->json(new UserResource(Auth::user()));
+        $user = Auth::user();
+
+        return response()->json(new UserResource($user));
     }
 
     public function bookings(StatusDto $dto): JsonResponse
