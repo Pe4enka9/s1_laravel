@@ -9,20 +9,30 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// Слайдер
 Route::get('/sliders', [SliderController::class, 'index']);
 
+// Меню
 Route::get('/menus', [MenuController::class, 'index']);
 Route::get('/menus/{menu}', [MenuController::class, 'show']);
 
+// Регистрация
 Route::post('/register', [RegisterController::class, 'register']);
+// Авторизация
 Route::post('/login', [LoginController::class, 'login']);
 
+// Бронирования
 Route::post('/bookings', [BookingController::class, 'store']);
 
+// Получение доступных слотов для записи
+Route::get('/slots', [BookingController::class, 'getSlots']);
+
 Route::middleware('auth:sanctum')->group(function () {
+    // Пользователь
     Route::get('/user', [UserController::class, 'index']);
     Route::get('/user/bookings', [UserController::class, 'bookings']);
 
+    // Выход
     Route::post('/logout', [LoginController::class, 'logout']);
 });
 

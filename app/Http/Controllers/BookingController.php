@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BookingDto;
+use App\Http\Requests\SlotDto;
 use App\Http\Requests\StatusDto;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking\Booking;
 use App\Models\Booking\Enums\BookingStatusEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -63,5 +65,54 @@ class BookingController extends Controller
         }
 
         return response()->json($result);
+    }
+
+    public function getSlots(SlotDto $dto): JsonResponse
+    {
+        $maxCapacity = 5;
+        $startHour = 10;
+        $endHour = 22;
+        $hours = $dto->duration;
+
+        $now = now();
+        $isToday = $dto->date === $now->toDateString();
+
+        $bookings = Booking::whereDate('date', $dto->date)
+            ->whereNot('status', BookingStatusEnum::CANCELLED)
+            ->get(['date', 'duration', 'peoples']);
+
+        $availableSlots = [];
+        $baseDate = Carbon::parse($dto->date);
+
+        for ($h = $startHour; $h + $hours <= $endHour; $h++) {
+            $slotStart = $baseDate->copy()->setTime($h, 0);
+            $slotEnd = $slotStart->copy()->addHours($hours);
+
+            if ($isToday && $slotStart->lt($now)) {
+                continue;
+            }
+
+            $occupied = 0;
+
+            foreach ($bookings as $booking) {
+                $bStart = Carbon::parse($booking->date);
+                $bEnd = $bStart->copy()->addHours($booking->duration);
+
+                if ($slotStart->lt($bEnd) && $slotEnd->gt($bStart)) {
+                    $occupied += $booking->peoples;
+                }
+            }
+
+            $freeSpots = $maxCapacity - $occupied;
+
+            if ($freeSpots >= $dto->peoples) {
+                $availableSlots[] = [
+                    'time' => $slotStart->format('H:i'),
+                    'free_spots' => $freeSpots,
+                ];
+            }
+        }
+
+        return response()->json($availableSlots);
     }
 }

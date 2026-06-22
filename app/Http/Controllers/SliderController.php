@@ -6,11 +6,14 @@ use App\Http\Requests\Slider\CreateSliderDto;
 use App\Http\Requests\Slider\UpdateSliderDto;
 use App\Http\Resources\SliderResource;
 use App\Models\Slider;
+use App\Services\Slider\Actions\CreateSliderAction;
+use App\Services\Slider\Actions\DeleteSliderAction;
+use App\Services\Slider\Actions\UpdateSliderAction;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
+    // Все слайды слайдера
     public function index(): JsonResponse
     {
         $sliders = Slider::all();
@@ -18,47 +21,36 @@ class SliderController extends Controller
         return response()->json(SliderResource::collection($sliders));
     }
 
-    public function store(CreateSliderDto $dto): JsonResponse
+    // Создание слайда в слайдер
+    public function store(
+        CreateSliderDto    $dto,
+        CreateSliderAction $createSliderAction,
+    ): JsonResponse
     {
-        $slider = Slider::create([
-            'name' => $dto->name,
-            'description' => $dto->description,
-            'bg_img' => $dto->bgImg->store('sliders/bg', 'public'),
-            'icon' => $dto->icon?->store('sliders/icons', 'public'),
-            'icon_text' => $dto->iconText,
-            'button' => $dto->button,
-        ]);
+        $slider = $createSliderAction($dto);
 
         return response()->json(new SliderResource($slider), 201);
     }
 
-    public function update(Slider $slider, UpdateSliderDto $dto): JsonResponse
+    // Обновление слайда в слайдере
+    public function update(
+        Slider             $slider,
+        UpdateSliderDto    $dto,
+        UpdateSliderAction $updateSliderAction,
+    ): JsonResponse
     {
-        if ($dto->bgImg) {
-            Storage::disk('public')->delete($slider->getRawOriginal('bg_img'));
-        }
-
-        if ($dto->icon && $slider->icon) {
-            Storage::disk('public')->delete($slider->getRawOriginal('icon'));
-        }
-
-        $slider->update([
-            'name' => $dto->name,
-            'description' => $dto->description,
-            'bg_img' => $dto->bgImg?->store('sliders/bg', 'public') ?? $slider->getRawOriginal('bg_img'),
-            'icon' => $dto->icon?->store('sliders/icons', 'public') ?? $slider->getRawOriginal('icon'),
-            'icon_text' => $dto->iconText,
-            'button' => $dto->button,
-        ]);
+        $slider = $updateSliderAction($slider, $dto);
 
         return response()->json(new SliderResource($slider));
     }
 
-    public function destroy(Slider $slider): JsonResponse
+    // Удаление слайда в слайдере
+    public function destroy(
+        Slider             $slider,
+        DeleteSliderAction $deleteSliderAction,
+    ): JsonResponse
     {
-        Storage::disk('public')->delete($slider->getRawOriginal('bg_img'));
-        if ($slider->icon) Storage::disk('public')->delete($slider->getRawOriginal('icon'));
-        $slider->delete();
+        $deleteSliderAction($slider);
 
         return response()->json(status: 204);
     }
