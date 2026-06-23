@@ -29,12 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Пользователь
     Route::get('/user', [UserController::class, 'index']);
     Route::get('/user/bookings', [UserController::class, 'bookings']);
+    Route::post('/users/avatar', [UserController::class, 'addAvatar']);
 
     // Выход
     Route::post('/logout', [LoginController::class, 'logout']);
-
-    // Пользователь
-    Route::post('/users/avatar', [UserController::class, 'addAvatar']);
 });
 
 Route::middleware('admin')->group(function () {
