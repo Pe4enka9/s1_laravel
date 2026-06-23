@@ -2,7 +2,7 @@
 
 namespace App\Services\Booking\Actions;
 
-use App\Http\Requests\SlotDto;
+use App\Http\Requests\Booking\SlotDto;
 use App\Models\Booking\Booking;
 use App\Models\Booking\Enums\BookingStatusEnum;
 use Carbon\Carbon;

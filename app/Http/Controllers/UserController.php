@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StatusDto;
+use App\Http\Requests\Booking\StatusDto;
+use App\Http\Requests\User\AddAvatarDto;
 use App\Http\Resources\BookingResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,5 +37,15 @@ class UserController extends Controller
                 'last_page' => $bookings->lastPage(),
             ],
         ]);
+    }
+
+    // Добавить аватар
+    public function addAvatar(AddAvatarDto $dto): JsonResponse
+    {
+        $path = $dto->avatar->store('users/avatars', 'public');
+
+        Auth::user()->update(['avatar' => $path]);
+
+        return response()->json(['success' => true]);
     }
 }

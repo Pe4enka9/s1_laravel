@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Slide;
 
-use App\Models\Booking\Enums\BookingStatusEnum;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapName(SnakeCaseMapper::class)]
-class StatusDto extends Data
+class MenuDto extends Data
 {
     public function __construct(
-        public ?BookingStatusEnum $status,
+        public ?int $menu,
     )
     {
     }

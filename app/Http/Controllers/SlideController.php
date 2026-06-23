@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MenuDto;
 use App\Http\Requests\Slide\CreateSlideDto;
+use App\Http\Requests\Slide\MenuDto;
 use App\Http\Requests\Slide\UpdateSlideDto;
 use App\Http\Resources\Menu\SlideResource;
 use App\Models\Menu\Slide;

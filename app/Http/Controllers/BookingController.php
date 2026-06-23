@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookingDto;
-use App\Http\Requests\SlotDto;
-use App\Http\Requests\StatusDto;
+use App\Http\Requests\Booking\BookingDto;
+use App\Http\Requests\Booking\SlotDto;
+use App\Http\Requests\Booking\StatusDto;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking\Booking;
 use App\Models\Booking\Enums\BookingStatusEnum;

@@ -23,8 +23,6 @@ Route::post('/login', [LoginController::class, 'login']);
 
 // Бронирования
 Route::post('/bookings', [BookingController::class, 'store']);
-
-// Получение доступных слотов для записи
 Route::get('/slots', [BookingController::class, 'getSlots']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -34,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Выход
     Route::post('/logout', [LoginController::class, 'logout']);
+
+    // Пользователь
+    Route::post('/users/avatar', [UserController::class, 'addAvatar']);
 });
 
 Route::middleware('admin')->group(function () {
@@ -57,4 +58,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/bookings', [BookingController::class, 'index']);
     Route::patch('/bookings/{booking}', [BookingController::class, 'update']);
     Route::get('/bookings/stats', [BookingController::class, 'getStats']);
+
+    // Пользователи
+    Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::post('/users/{user}/comment', [\App\Http\Controllers\Admin\UserController::class, 'addComment']);
 });
