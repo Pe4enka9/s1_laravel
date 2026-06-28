@@ -60,4 +60,5 @@ Route::middleware('admin')->group(function () {
     // Пользователи
     Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
     Route::post('/users/{user}/comment', [\App\Http\Controllers\Admin\UserController::class, 'addComment']);
+    Route::get('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'show']);
 });
