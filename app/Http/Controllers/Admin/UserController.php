@@ -6,14 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\AddCommentDto;
 use App\Http\Resources\Admin\UserResource;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     // Получение всех пользователей
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $users = User::where('is_admin', false)->get();
+        $users = User::when($request->phone, function (Builder $query) use ($request) {
+            $query->where('phone', 'like', "%$request->phone%");
+        })
+            ->where('is_admin', false)
+            ->get();
 
         return response()->json(UserResource::collection($users));
     }
@@ -26,6 +32,6 @@ class UserController extends Controller
     {
         $user->update(['comment' => $dto->comment]);
 
-        return response()->json(['success' => true]);
+        return response()->json(new UserResource($user));
     }
 }

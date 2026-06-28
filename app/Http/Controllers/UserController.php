@@ -42,10 +42,12 @@ class UserController extends Controller
     // Добавить аватар
     public function addAvatar(AddAvatarDto $dto): JsonResponse
     {
+        $user = Auth::user();
+
         $path = $dto->avatar->store('users/avatars', 'public');
 
-        Auth::user()->update(['avatar' => $path]);
+        $user->update(['avatar' => $path]);
 
-        return response()->json(['success' => true]);
+        return response()->json(['avatar' => $user->avatar_url]);
     }
 }

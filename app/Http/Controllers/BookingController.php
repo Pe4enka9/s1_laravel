@@ -26,6 +26,7 @@ class BookingController extends Controller
         return response()->json([
             'data' => BookingResource::collection($bookings),
             'pagination' => [
+                'total' => $bookings->total(),
                 'current_page' => $bookings->currentPage(),
                 'last_page' => $bookings->lastPage(),
             ],

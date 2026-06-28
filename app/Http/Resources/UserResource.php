@@ -17,7 +17,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'phone' => $this->phone,
             'is_admin' => $this->is_admin ?? false,
-            'avatar' => $this->avatar_url,
+            'avatar' => $this->avatar ? $this->avatar_url : null,
         ];
     }
 }
