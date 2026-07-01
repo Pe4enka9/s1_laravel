@@ -18,13 +18,10 @@ class BookingResource extends JsonResource
             'user_id' => $this->user_id,
             'phone' => $this->phone,
             'date' => $this->date,
-            'date_formatted' => $this->date_formatted,
-            'time_formatted' => $this->time_formatted,
             'duration' => $this->duration,
             'peoples' => $this->peoples,
             'status' => $this->status,
             'created_at' => $this->created_at,
-            'created_at_date_formatted' => $this->created_at_date_formatted,
         ];
     }
 }
