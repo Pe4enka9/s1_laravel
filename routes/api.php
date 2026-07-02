@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookingController;
@@ -24,6 +25,8 @@ Route::post('/login', [LoginController::class, 'login']);
 // Бронирования
 Route::post('/bookings', [BookingController::class, 'store']);
 Route::get('/slots', [BookingController::class, 'getSlots']);
+
+Route::get('/admins/current', [AdminController::class, 'current']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Пользователь
@@ -61,4 +64,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index']);
     Route::post('/users/{user}/comment', [\App\Http\Controllers\Admin\UserController::class, 'addComment']);
     Route::get('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'show']);
+
+    // Администраторы
+    Route::get('/admins', [AdminController::class, 'index']);
+    Route::patch('/admins/{user}', [AdminController::class, 'update']);
+    Route::post('/admins/current', [AdminController::class, 'setCurrent']);
 });

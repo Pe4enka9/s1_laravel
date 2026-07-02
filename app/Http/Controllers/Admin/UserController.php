@@ -7,7 +7,7 @@ use App\Http\Requests\Admin\User\AddCommentDto;
 use App\Http\Requests\Booking\StatusDto;
 use App\Http\Resources\Admin\UserResource;
 use App\Http\Resources\BookingResource;
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

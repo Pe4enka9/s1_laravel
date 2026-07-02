@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +16,8 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'phone' => $this->phone,
-            'is_admin' => $this->is_admin ?? false,
+            'name' => $this->name,
+            'role' => $this->role,
             'avatar' => $this->avatar ? $this->avatar_url : null,
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use App\Models\Booking\Booking;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
@@ -19,7 +19,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'password' => 'hashed',
-        'is_admin' => 'boolean',
+        'role' => RoleEnum::class,
     ];
 
     public function bookings(): HasMany

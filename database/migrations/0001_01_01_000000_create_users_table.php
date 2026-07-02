@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User\RoleEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('phone')->unique();
+            $table->string('name')->nullable();
             $table->string('password');
-            $table->boolean('is_admin')->default(false);
+            $table->string('role')->default(RoleEnum::USER);
             $table->text('comment')->nullable();
             $table->string('avatar')->nullable();
+            $table->boolean('is_current_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
